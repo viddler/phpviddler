@@ -26,6 +26,7 @@ class Phpviddler {
 
 	var $apiKey;  // To obtain an API key: http://developers.viddler.com/
 	var $viddlerREST = 'http://api.viddler.com/rest/v1/'; // REST URL Version 1.0
+	var $oEmbedREST  = 'http://lab.viddler.com/services/oembed/';
 	var $parser = true; // Use the included XML parser? Default: true.
 	var $debug = false; // Switch for debug mode
 
@@ -158,6 +159,19 @@ class Phpviddler {
 		return $videoDetails;
 	}
 	
+	/* viddler.videos.getDetailsByUrl
+	/ accepts $sessionid(number/optional) and $videourl(string)
+	/ returns: array or xml
+	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.videos.getDetailsByUrl
+	*/
+	function video_detailsbyurl($videourl=null,$sessionid=null) {
+	  if($videourl && !strpos($videourl, 'explore')) $videourl = str_replace('viddler.com/', 'viddler.com/explore/', $url);
+	  
+	  $videoDetails = $this->sendRequest('viddler.videos.getDetailsByUrl','sessionid='.$sessionid.'&url='.$videourl);
+	  
+	  return $videoDetails;
+	}
+	
 	/* viddler.videos.setDetails
 	/ accepts: array
 	/ returns: array or xml
@@ -168,6 +182,16 @@ class Phpviddler {
 		$newVideoDetails = $this->sendRequest('viddler.videos.setDetails',$videoDetails,'post');
 		
 		return $newVideoDetails;
+	}
+	
+	/* viddler.videos.comments.add
+	/ accepts $video_id(string), $text(string), $sessionid
+	*/
+	function video_addcomment($video_id=null, $text=null, $sessionid=null) {
+		$array = array('video_id' => $video_id, 'text' => $text, 'sessionid' => $sessionid);
+		$comment = $this->sendRequest('viddler.videos.comments.add',$array,'post');
+		
+		return $comment;
 	}
 
 
@@ -207,7 +231,6 @@ class Phpviddler {
 		
 		return $featuredVideos;
 	} // end videos_listfeatured()
-	
 	
 /*########## Extended Functions ###########
 	Although not available via the API itself yet,
@@ -321,22 +344,26 @@ class Phpviddler {
 		return $html;
 	}
 	
-	function video_getoEmbed($videourl,$maxwidth) {
-		
-		$reqURL = 'http://labs.viddler.com/services/oembed/?format=html&url='.$videourl.'&maxwidth='.$maxwidth;
-	
-		$curl_handle = curl_init();
-		curl_setopt ($curl_handle, CURLOPT_URL, $reqURL);
-		curl_setopt ($curl_handle, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt ($curl_handle, CURLOPT_CONNECTTIMEOUT, 1);
-		curl_setopt ($curl_handle, CURLOPT_HEADER, 0);
-		curl_setopt ($curl_handle, CURLOPT_TIMEOUT, 0);
-		$embedcode = curl_exec($curl_handle);
-		
-		if (!$response)	$response = curl_error($curl_handle);
-		curl_close($curl_handle);
-		
-		return $embedcode;
+	/* video_oEmbed()
+	/ accepts: $url(string), $type(string,(player or simple),default=player),
+	// $ratio(string,(widescreen or fullscreen), default=NULL), $width(number or "full", default=437)
+	// $format(string, (xml, json, html), default=xml)
+	*/
+	function video_oEmbed($url, $type='player', $ratio=NULL, $width=437, $format='xml') {
+	   $old_parser = $this->parser;
+	   $old_viddlerREST = $this->viddlerREST;
+	   
+	   if($format != 'xml') $this->parser = false;
+	   $this->viddlerREST = $this->oEmbedREST;
+	   
+	   if($url && !strpos($url, 'explore')) $url = str_replace('viddler.com/', 'viddler.com/explore/', $url);
+	   
+	   $resp = $this->sendRequest('video_oembed', array('url' => $url, 'type' => $type, 'ratio' => $ratio, 'width' => $width, 'format' => $format));
+	   
+	   $this->parser = $old_parser;
+	   $this->viddlerREST = $old_viddlerREST;
+	   
+	   return $resp;
 	}
 	
 	
@@ -367,13 +394,13 @@ class Phpviddler {
 	function sendRequest($method=null,$args=null,$postmethod='get') {
 	
 		// Convert array to string
-		if ($method == 'viddler.videos.setDetails') $args = $this->buildArguments($args);
+    if (is_array($args) && $method != 'viddler.videos.upload') $args = $this->buildArguments($args);
 		
 		$reqURL = $this->viddlerREST.'?api_key='.$this->apiKey.'&method='.$method;
 		if ($postmethod == 'get') {
 			$reqURL .= '&'.$args;
 		}
-		
+
 		$curl_handle = curl_init();
 		curl_setopt ($curl_handle, CURLOPT_URL, $reqURL);
 		curl_setopt ($curl_handle, CURLOPT_RETURNTRANSFER, 1);
