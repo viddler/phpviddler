@@ -1,13 +1,7 @@
 <?php
 include_once('phpviddler.php');
-// uses('RequestCache');
-loadModels();
-$GLOBALS['total_requests'] = 0;
-$GLOBALS['total_request_time'] = 0;
 
-class Php5viddler extends Phpviddler {
-  var $requireCache = false;
-  
+class Php5viddler extends Phpviddler {  
   function sendRequest($method=null,$args=null,$postmethod='get',$tryagain=true) {    
     $result = parent::sendRequest($method, $args, $postmethod);
     
