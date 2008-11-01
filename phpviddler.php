@@ -103,7 +103,13 @@ class Phpviddler {
 	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.videos.upload
 	*/
 	function video_upload($videoInfo=null) {
-		
+	  // tom@punkave.com: this didn't work as-is because curl doesn't know
+    // the 'file' field is the path of a file to be uploaded unless
+    // you tell it by prefixing the value with an '@' sign.
+    if (isset($videoInfo['file']))
+    {
+      $videoInfo['file'] = '@' . $videoInfo['file'];
+    }
 		$videoDetails = $this->sendRequest('viddler.videos.upload',$videoInfo,'post');
 		
 		return $videoDetails;	
@@ -331,16 +337,33 @@ class Phpviddler {
 	
 	/* video_getEmbed()
 	/ accepts: $videoid(string),$type(string,(player or simple),default=player),$options
-	// $width(number),$height(number)
+	/ $width(number),$height(number),$autoplay(boolean),$options(array or false)
 	/ returns: HTML
+  / autoplay & options added by tom@punkave.com
 	*/
-	function video_getEmbed($videoid=null,$type='player',$width=437,$height=370) {
+	function video_getEmbed($videoid=null,$type='player',$width=437,$height=370, $autoplay = false, $options = false) {
+   if (!$options) {
+      $options = array();    
+   }
 		
 		if (!$videoid) return false;
-		
-		$html = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="'.$width.'" height="'.$height.'" id="viddlerplayer-'.$videoid.'"><param name="movie" value="http://www.viddler.com/'.$type.'/'.$videoid.'/" /><param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="true" /><embed src="http://www.viddler.com/'.$type.'/'.$videoid.'/" width="'.$width.'" height="'.$height.'" type="application/x-shockwave-flash" allowScriptAccess="always" allowFullScreen="true" name="viddlerplayer-'.$videoid.'" ></embed></object>';
-		
-		return $html;
+
+    $html = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width=
+"'.$width.'" height="'.$height.'" id="viddlerplayer-'.$videoid.'"><param name="m
+ovie" value="http://www.viddler.com/'.$type.'/'.$videoid.'/" />';
+    if ($autoplay) {
+      $options['autoplay'] = 't';
+    }
+    foreach ($options as $key => $val) {
+      $html .= '<param name="' . htmlspecialchars($key) . '" value="' .
+        htmlspecialchars($val) . '" />';
+    }
+    $html .= '<param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="true" /><embed src="http://www.viddler.com/'.$type.'/'.$videoid.'/" width="'.$width.'" height="'.$height.'" type="application/x-shockwave-flash" allowScriptAccess="always" allowFullScreen="true"';
+    if (count($options)) {
+      $html .= ' flashvars="' . http_build_query($options) . '"';
+    }
+    $html .= ' name="viddlerplayer-'.$videoid.'" ></embed></object>';
+    return $html;
 	}
 
 	function video_getoEmbed($videourl,$maxwidth) {
@@ -367,7 +390,8 @@ class Phpviddler {
 	/ returns: string
 	*/
 	function buildArguments($p) {
-	
+    // tom@punkave.com: undefined warning otherwise
+    $args = '';
 		foreach ($p as $key => $value) {
 			
 			// Skip these
@@ -380,7 +404,6 @@ class Phpviddler {
 		// Chop off last ampersand
 		return substr($args, 0, -1);
 	} // end buildArguments()
-	
 
 	/* sendRequest()
 	/ accepts: $method(string), $args(array), $postmethod(string / post,get)
@@ -389,13 +412,31 @@ class Phpviddler {
 	function sendRequest($method=null,$args=null,$postmethod='get') {
 	
 		// Convert array to string
-		if ($method == 'viddler.videos.setDetails') $args = $this->buildArguments($args);
-		
+
+    // tom@punkave.com: this used to break file uploads. CURLOPT_POSTFIELDS
+    // is only checked for names beginning with @ if it's an array, and
+    // that's how PHP's cURL wrapper recognizes file uploads. This in itself
+    // is a potential security hole (because PHP programmers have no idea
+    // that an @ prefix will do this if they pass an array), and I've opened 
+    // a PHP bug report on that subject (#46439), but for viddler API 
+    // purposes it's safe because viddler doesn't want or accept file 
+    // uploads for inappropriate fields. Someday PHP's behavior may
+    // change to the new API I suggest in that bug report (requiring
+    // some changes here). We can hope.
+
 		$reqURL = $this->viddlerREST.'?api_key='.$this->apiKey.'&method='.$method;
 		if ($postmethod == 'get') {
-			$reqURL .= '&'.$args;
+      if (is_array($args)) 
+      {
+        $getArgs = $this->buildArguments($args);
+      }	
+      else
+      {
+        $getArgs = $args;
+      }
+			$reqURL .= '&'.$getArgs;
 		}
-
+		
 		$curl_handle = curl_init();
 		curl_setopt ($curl_handle, CURLOPT_URL, $reqURL);
 		curl_setopt ($curl_handle, CURLOPT_RETURNTRANSFER, 1);
@@ -425,7 +466,7 @@ class Phpviddler {
 			return $response;
 		}
         
-	} // End sentRequest();
+	} // End sendRequest();
 
 } // end phpviddler
 
