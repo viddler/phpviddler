@@ -106,7 +106,7 @@ class Phpviddler {
 	  // tom@punkave.com: this didn't work as-is because curl doesn't know
     // the 'file' field is the path of a file to be uploaded unless
     // you tell it by prefixing the value with an '@' sign.
-    if (isset($videoInfo['file']))
+    if (isset($videoInfo['file']) && substr($videoInfo['file'],0,1) != '@')
     {
       $videoInfo['file'] = '@' . $videoInfo['file'];
     }
