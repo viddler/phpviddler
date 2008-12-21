@@ -24,3 +24,13 @@ Third-party software included
 * [XML Library](http://keithdevens.com/software/phpxml) by Keith Devens, version 1.2b (optional)
 
 At present we include the XML Library as a means to parse the REST API’s responses, though it is configurable to turn off for applications that already have an XML Parser. See readme for details.
+
+Usage
+-----
+    $v = new Phpviddler('your api key');
+    
+    // Find videos by user
+    $videos = $v->videos_listbyuser('kyleslat');
+    foreach($videos['video_list']['video'] as $video) {
+      echo $v->video_getEmbed($video['id']);
+    }
