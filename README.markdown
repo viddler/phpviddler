@@ -38,3 +38,5 @@ Usage
     foreach($videos['video_list']['video'] as $video) {
       echo $v->video_getEmbed($video['id']);
     }
+    
+For more tutorials check the [Viddler Development Blog](http://developers.viddler.com/category/tutorials/phpviddler/)
