@@ -25,6 +25,10 @@ Third-party software included
 
 At present we include the XML Library as a means to parse the REST API’s responses, though it is configurable to turn off for applications that already have an XML Parser. See readme for details.
 
+PHP 5
+-----
+Included is a class `Php5viddler` which will raise exceptions (supported in PHP 5) if an error is returned from the API.  If you use `Phpviddler`, you need to check the response to see if there is an error node.
+
 Usage
 -----
     $v = new Phpviddler('your api key');
