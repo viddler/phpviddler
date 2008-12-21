@@ -18,9 +18,14 @@
 	########################################################
 */
 
+include_once('config.php');
+
 # XML Library, by Keith Devens, version 1.2b
 # http://keithdevens.com/software/phpxml
-include('xmlparser.php');
+include_once('xmlparser.php');
+
+# Models
+include_once('models.php');
 
 class Phpviddler {
 
@@ -29,6 +34,12 @@ class Phpviddler {
 	var $parser = true; // Use the included XML parser? Default: true.
 	var $debug = false; // Switch for debug mode
 
+
+  function __construct($apiKey=false) {
+    if($apiKey) {
+      $this->apiKey = $apiKey;
+    }
+  }
 /*##########  User functions ########### */
 	
 	/* viddler.users.register
@@ -445,7 +456,11 @@ ovie" value="http://www.viddler.com/'.$type.'/'.$videoid.'/" />';
 		curl_setopt ($curl_handle, CURLOPT_TIMEOUT, 0);
 		if ($postmethod == 'post') {
 			curl_setopt($curl_handle, CURLOPT_POST, 1);
-			curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $args);
+			if ($method == 'viddler.videos.upload'){
+				curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $args);
+			} else {
+				curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $this->buildArguments($args));
+			}
 		}
 		$response = curl_exec($curl_handle);
 		
