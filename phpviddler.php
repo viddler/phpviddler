@@ -4,7 +4,7 @@
 	#  Viddler API / PHP Wrapper
 	#  By: Colin Devroe | cdevroe@viddler.com
 	#
-	#  Docs: http://wiki.developers.viddler.com/index.php/Phpviddler
+	#  Docs: http://developers.viddler.com/documentation/api/
 	#
 	#  License(s): Dual licensed under: 
 	#  MIT (MIT-LICENSE.txt)
@@ -14,18 +14,13 @@
     #  XML Library by Keith Devens
 	#  xmlparser.php
 	#
-	#  Version 0.4
+	#  Version 0.5
 	########################################################
 */
-
-include_once('config.php');
 
 # XML Library, by Keith Devens, version 1.2b
 # http://keithdevens.com/software/phpxml
 include_once('xmlparser.php');
-
-# Models
-include_once('models.php');
 
 class Phpviddler {
 
@@ -45,7 +40,7 @@ class Phpviddler {
 	/* viddler.users.register
 	/ accepts: $userInfo(array)
 	/ returns: array or xml
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.users.register
+	/ doc: http://developers.viddler.com/documentation/api/method-users-register
 	*/
 	function user_register($userInfo=null) {
 		
@@ -58,7 +53,7 @@ class Phpviddler {
 	/* viddler.users.auth
 	/ accepts: $user(string),$pass(string),$getToken(1/optional)
 	/ returns: array or xml
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.users.auth
+	/ doc: http://developers.viddler.com/documentation/api/method-users-auth
 	*/
 	function user_authenticate($user=null,$pass=null,$getToken=null) {
 		
@@ -70,7 +65,7 @@ class Phpviddler {
 	/* viddler.users.getProfile
 	/ accepts: $user(string)
 	/ returns: array or xml
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.users.getProfile
+	/ doc: http://developers.viddler.com/documentation/api/method-users-getprofile
 	*/
 	function user_profile($user=null) {
 		
@@ -83,7 +78,7 @@ class Phpviddler {
 	/ requires: POST
 	/ accepts: $profile(array)
 	/ returns: array or xml
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.users.setProfile
+	/ doc: http://developers.viddler.com/documentation/api/method-users-setprofile
 	*/
 	function user_setprofile($profile=null) {
 		
@@ -96,7 +91,7 @@ class Phpviddler {
 	/ requires: POST
 	/ accepts: $options(array)
 	/ returns: array or xml
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.users.setOptions
+	/ doc: http://developers.viddler.com/documentation/api/method-users-setoptions
 	*/
 	function user_setoptions($options=null) {
 	
@@ -107,30 +102,44 @@ class Phpviddler {
 	
 /*##########  Video functions ########### */
 
+	/* viddler.videos.prepareUpload
+	/ accepts: $sessionid
+	/ returns: array or xml
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-prepareupload
+	*/		
+	function video_prepareupload($sessionid=null) {
+		$temprest = $this->sendRequest('viddler.videos.prepareUpload',array('sessionid'=>$sessionid));
+		return $temprest;
+	}
+
 	/* viddler.videos.upload
 	/ requires: POST
 	/ accepts: $videoInfo(array)
 	/ returns: array or xml
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.videos.upload
-	*/
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-upload
+	*/		
 	function video_upload($videoInfo=null) {
-	  // tom@punkave.com: this didn't work as-is because curl doesn't know
-    // the 'file' field is the path of a file to be uploaded unless
-    // you tell it by prefixing the value with an '@' sign.
-    if (isset($videoInfo['file']) && substr($videoInfo['file'],0,1) != '@')
-    {
-      $videoInfo['file'] = '@' . $videoInfo['file'];
-    }
-		$videoDetails = $this->sendRequest('viddler.videos.upload',$videoInfo,'post');
+		// tom@punkave.com: this didn't work as-is because curl doesn't know
+		// the 'file' field is the path of a file to be uploaded unless
+		// you tell it by prefixing the value with an '@' sign.
+		$rest = $this->viddlerREST;
+		$temprest = $this->video_prepareupload($videoInfo['sessionid']);
+		$this->viddlerREST = $temprest['upload']['endpoint'];
 		
-		return $videoDetails;	
+		if (isset($videoInfo['file']) && substr($videoInfo['file'],0,1) != '@') {
+			$videoInfo['file'] = '@' . $videoInfo['file'];
+		}
+
+		$videoDetails = $this->sendRequest('viddler.videos.upload',$videoInfo,'post');
+		$this->viddlerREST = $rest;
+		return $videoDetails;
 	}
+
 	
 	/* viddler.videos.getRecordToken
 	/ accepts: $sessionid(number)
 	/ returns: number | string if error
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.videos.getRecordToken
-	/ doc: http://wiki.developers.viddler.com/index.php/Record_With_Webcam_API
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-getrecordtoken
 	*/
 	function video_getrecordtoken($sessionid=null) {
 		
@@ -154,7 +163,7 @@ class Phpviddler {
 		5: Deleted (failed=0)
 		6: Wrong priviledges (failed=0)
 	}
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.videos.getStatus
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-getstatus
 	*/
 	function video_status($videoid=null,$sessionid=null) {
 		
@@ -166,7 +175,7 @@ class Phpviddler {
 	/* viddler.videos.getDetails
 	/ accepts: $sessionid(number/optional) and $videoid(number)
 	/ returns: array or xml
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.videos.getDetails
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-getdetails
 	*/
 	function video_details($videoid=null,$sessionid=null) {
 		
@@ -178,7 +187,7 @@ class Phpviddler {
 	/* viddler.videos.getDetailsByUrl
 	/ accepts $sessionid(number/optional) and $videourl(string)
 	/ returns: array or xml
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.videos.getDetailsByUrl
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-getdetailsbyurl
 	*/
 	function video_detailsbyurl($videourl=null,$sessionid=null) {
 	  if($videourl && !strpos($videourl, 'explore')) $videourl = str_replace('viddler.com/', 'viddler.com/explore/', $url);
@@ -191,7 +200,7 @@ class Phpviddler {
 	/* viddler.videos.setDetails
 	/ accepts: array
 	/ returns: array or xml
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.videos.setDetails
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-setdetails
 	*/
 	function video_setdetails($videoDetails=null) {
 	
@@ -200,8 +209,25 @@ class Phpviddler {
 		return $newVideoDetails;
 	}
 	
+	/* viddler.videos.setPermalink
+	/ accepts: $sessionid(number),url(url),videoid(string)
+	/ returns: string | string if error
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-setpermalink
+	*/		
+	function video_setpermalink($sessionid=null,$videoid=null,$url=null) {
+		$permalink = $this->sendRequest('viddler.videos.setPermalink',array('sessionid'=>$sessionid,'video_id'=>$videoid,'url'=>$url));
+			
+		if ($permalink['error']) {
+			return $permalink['error']['description'];
+		} else {
+			return $permalink['permalink'];
+		}
+
+	}
+	
 	/* viddler.videos.comments.add
 	/ accepts $video_id(string), $text(string), $sessionid
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-comments-add
 	*/
 	function video_addcomment($video_id=null, $text=null, $sessionid=null) {
 		$array = array('video_id' => $video_id, 'text' => $text, 'sessionid' => $sessionid);
@@ -209,12 +235,23 @@ class Phpviddler {
 		
 		return $comment;
 	}
+	
+	/* viddler.videos.comments.remove
+	/ accepts $video_id(string), $text(string), $sessionid
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-comments-remove
+	*/		
+	function video_removecomment($video_id=null, $commentid=null, $sessionid=null) {
+		$array = array('video_id' => $video_id, 'comment_id' => $commentid, 'sessionid' => $sessionid);
+		$remove = $this->sendRequest('viddler.videos.comments.remove',$array,'post');
+		
+		return $remove;
+	}
 
 
 	/* viddler.videos.getByUser
 	/ accepts: $user(string), $page(number), $per_page(number), $sessionid(number)
 	/ returns: array or xml
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.videos.getByUser
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-getbyuser
 	*/
 	function videos_listbyuser($user=null,$page=null,$per_page=null,$sessionid=null) {
 		
@@ -227,7 +264,7 @@ class Phpviddler {
 	/* viddler.videos.getByTag
 	/ accepts: $tag = string, $page = number, $per_page = number
 	/ returns: array or xml
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.videos.getByTag
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-getbytag
 	*/
 	function videos_listbytag($tag=null,$page=null,$per_page=null) {
 		
@@ -239,7 +276,7 @@ class Phpviddler {
 	/* viddler.videos.getFeatured
 	/ accepts: none
 	/ returns: array or xml
-	/ doc: http://wiki.developers.viddler.com/index.php/Viddler.videos.getFeatured
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-getfeatured
 	*/
 	function videos_listfeatured() {
 		
@@ -350,7 +387,7 @@ class Phpviddler {
 	/ accepts: $videoid(string),$type(string,(player or simple),default=player),$options
 	/ $width(number),$height(number),$autoplay(boolean),$options(array or false)
 	/ returns: HTML
-  / autoplay & options added by tom@punkave.com
+	  / autoplay & options added by tom@punkave.com
 	*/
 	function video_getEmbed($videoid=null,$type='player',$width=437,$height=370, $autoplay = false, $options = false) {
    if (!$options) {
