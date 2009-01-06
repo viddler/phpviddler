@@ -27,7 +27,7 @@ function & XML_unserialize(&$xml){
 # XML_serialize: serializes any PHP data structure into XML
 # Takes one parameter: the data to serialize. Must be an array.
 ###################################################################################
-function & XML_serialize(&$data, $level = 0, $prior_key = NULL){
+function XML_serialize(&$data, $level = 0, $prior_key = NULL){
 	if($level == 0){ ob_start(); echo '<?xml version="1.0" ?>',"\n"; }
 	while(list($key, $value) = each($data))
 		if(!strpos($key, ' attr')) #if it's not an attribute
@@ -50,7 +50,7 @@ function & XML_serialize(&$data, $level = 0, $prior_key = NULL){
 				else echo ">\n",XML_serialize($value, $level+1),str_repeat("\t", $level),"</$tag>\n";
 			}
 	reset($data);
-	if($level == 0){ $str = &ob_get_contents(); ob_end_clean(); return $str; }
+	if($level == 0){ $str = ob_get_contents(); ob_end_clean(); return $str; }
 }
 ###################################################################################
 # XML class: utility class to be used with PHP's XML handling functions
