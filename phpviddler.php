@@ -14,7 +14,7 @@
     #  XML Library by Keith Devens
 	#  xmlparser.php
 	#
-	#  Version 0.5
+	#  Version 0.51
 	########################################################
 */
 
@@ -215,7 +215,7 @@ class Phpviddler {
 	/ doc: http://developers.viddler.com/documentation/api/method-videos-setpermalink
 	*/		
 	function video_setpermalink($sessionid=null,$videoid=null,$url=null) {
-		$permalink = $this->sendRequest('viddler.videos.setPermalink',array('sessionid'=>$sessionid,'video_id'=>$videoid,'url'=>$url));
+		$permalink = $this->sendRequest('viddler.videos.setPermalink',array('sessionid'=>$sessionid,'video_id'=>$videoid,'permalink'=>$url),'post');
 			
 		if ($permalink['error']) {
 			return $permalink['error']['description'];
