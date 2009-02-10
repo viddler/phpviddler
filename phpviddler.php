@@ -249,13 +249,13 @@ class Phpviddler {
 
 
 	/* viddler.videos.getByUser
-	/ accepts: $user(string), $page(number), $per_page(number), $sessionid(number)
+	/ accepts: $user(string), $page(number), $per_page(number), $sessionid(number), $tags(string)
 	/ returns: array or xml
 	/ doc: http://developers.viddler.com/documentation/api/method-videos-getbyuser
 	*/
-	function videos_listbyuser($user=null,$page=null,$per_page=null,$sessionid=null) {
+	function videos_listbyuser($user=null,$page=null,$per_page=null,$sessionid=null,$tags=null) {
 		
-		$videoList = $this->sendRequest('viddler.videos.getByUser','user='.$user.'&sessionid='.$sessionid.'&page='.$page.'&per_page='.$per_page);
+		$videoList = $this->sendRequest('viddler.videos.getByUser','user='.$user.'&sessionid='.$sessionid.'&page='.$page.'&per_page='.$per_page.'&tags='.$tags);
 		
 		return $videoList;
 	}
