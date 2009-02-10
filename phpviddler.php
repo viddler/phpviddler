@@ -250,12 +250,13 @@ class Phpviddler {
 
 	/* viddler.videos.getByUser
 	/ accepts: $user(string), $page(number), $per_page(number), $sessionid(number), $tags(string)
+	/ $sort(uploaded-asc, uploaded-desc (default), views-asc, views-desc)
 	/ returns: array or xml
 	/ doc: http://developers.viddler.com/documentation/api/method-videos-getbyuser
 	*/
-	function videos_listbyuser($user=null,$page=null,$per_page=null,$sessionid=null,$tags=null) {
+	function videos_listbyuser($user=null,$page=null,$per_page=null,$sessionid=null,$tags=null,$sort=null) {
 		
-		$videoList = $this->sendRequest('viddler.videos.getByUser','user='.$user.'&sessionid='.$sessionid.'&page='.$page.'&per_page='.$per_page.'&tags='.$tags);
+		$videoList = $this->sendRequest('viddler.videos.getByUser','user='.$user.'&sessionid='.$sessionid.'&page='.$page.'&per_page='.$per_page.'&tags='.$tags.'&sort='.$sort);
 		
 		return $videoList;
 	}
@@ -263,12 +264,13 @@ class Phpviddler {
 	
 	/* viddler.videos.getByTag
 	/ accepts: $tag = string, $page = number, $per_page = number
+	/ $sort(uploaded-asc, uploaded-desc (default), views-asc, views-desc)
 	/ returns: array or xml
 	/ doc: http://developers.viddler.com/documentation/api/method-videos-getbytag
 	*/
-	function videos_listbytag($tag=null,$page=null,$per_page=null) {
+	function videos_listbytag($tag=null,$page=null,$per_page=null,$sort=null) {
 		
-		$videoList = $this->sendRequest('viddler.videos.getByTag','tag='.$tag.'&page='.$page.'&per_page='.$per_page);
+		$videoList = $this->sendRequest('viddler.videos.getByTag','tag='.$tag.'&page='.$page.'&per_page='.$per_page.'&sort='.$sort);
 		
 		return $videoList;
 	}
