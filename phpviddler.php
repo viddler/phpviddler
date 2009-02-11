@@ -14,7 +14,7 @@
     #  XML Library by Keith Devens
 	#  xmlparser.php
 	#
-	#  Version 0.51
+	#  Version 0.52
 	########################################################
 */
 
