@@ -167,7 +167,7 @@ class Phpviddler {
 	*/
 	function video_status($videoid=null,$sessionid=null) {
 		
-		$videoStatus = $this->sendRequest('video.status','video_id='.$videoid.'&sessionid='.$sessionid);
+		$videoStatus = $this->sendRequest('viddler.videos.getStatus','video_id='.$videoid.'&sessionid='.$sessionid);
 		
 		return $videoStatus;
 	}
