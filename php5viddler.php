@@ -11,7 +11,7 @@ class Php5viddler extends Phpviddler {
       throw new ViddlerException("No response", $method, 8888, 'n/a');
     }
     
-    if(is_array($result) && $result['error']) {
+    if(is_array($result) && isset($result['error'])) {
       throw new ViddlerException($result['error']['description'], $method, $result['error']['code'], $result['error']['details']);
     }
 
