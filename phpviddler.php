@@ -391,10 +391,10 @@ class Phpviddler {
 			<param name="allowNetworking" value="all" />
 			<param name="movie" value="http://www.viddler.com/flash/recorder.swf" />
 			<param name="quality" value="high" />
-			<param name="scale" value="noScale">
+			<param name="scale" value="noScale" />
 			<param name="bgcolor" value="#000000" />
-			<param name="flashvars" value="fake=1&recordToken='.$token.'" />
-			<embed src="http://www.viddler.com/flash/recorder.swf" quality="high" scale="noScale" bgcolor="#000000" allowScriptAccess="always" allowNetworking="all" width="'.$width.'" height="'.$height.'" name="viddler_recorder" flashvars="fake=1&recordToken='.$token.'" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+			<param name="flashvars" value="fake=1&amp;recordToken='.$token.'" />
+			<embed src="http://www.viddler.com/flash/recorder.swf" quality="high" scale="noScale" bgcolor="#000000" allowScriptAccess="always" allowNetworking="all" width="'.$width.'" height="'.$height.'" name="viddler_recorder" flashvars="fake=1&amp;recordToken='.$token.'" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
 		</object>';
 		
 		return $html;
