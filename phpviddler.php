@@ -287,6 +287,21 @@ class Phpviddler {
 		return $featuredVideos;
 	} // end videos_listfeatured()
 	
+	/* viddler.videos.search
+  accepts: array(
+  	type("myvideos","friendsvideos","allvideos","relevant","recent","popular","timedtags","globaltags")
+  	query (string to search for)
+  	page = (page number of results to retrieve | optional)
+  	per_page (results per page, max is 100, default is 20 | optional)
+  	sessionid (sessionid for user account, only used if type is "myvideos" | Optional)
+  )
+  returns: array or xml
+  doc: http://developers.viddler.com/documentation/api/method-videos-search/
+  */
+  function video_search($details) {
+  	return $this->sendRequest('viddler.videos.search', $details, 'post');
+  }
+	
 /*########## Extended Functions ###########
 	Although not available via the API itself yet,
 	these functions can be used to do common
