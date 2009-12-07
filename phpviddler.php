@@ -14,7 +14,7 @@
     #  XML Library by Keith Devens
 	#  xmlparser.php
 	#
-	#  Version 0.52
+	#  Version 0.6
 	########################################################
 */
 
@@ -221,6 +221,27 @@ class Phpviddler {
 			return $permalink['error']['description'];
 		} else {
 			return $permalink['permalink'];
+		}
+
+	}
+	
+	/* viddler.videos.setThumbnail
+	/ accepts: $sessionid(number),url(url),videoid(string)
+	/ returns: array or xml | string if error
+	/ doc: http://developers.viddler.com/documentation/api/method-videos-setthumbnail/
+	*/		
+	function video_setthumbnail($sessionid=null,$videoid=null,$timepoint=null,$file=null) {
+		
+		if (isset($file) && substr($file,0,1) != '@') {
+			$file = '@' . $file;
+		}
+		
+		$thumbnail = $this->sendRequest('viddler.videos.setThumbnail',array('sessionid'=>$sessionid,'video_id'=>$videoid,'timepoint'=>1,'file'=>$file,),'post');
+			
+		if ($thumbnail['error']) {
+			return $thumbnail['error']['description'];
+		} else {
+			return $thumbnail['thumbnail'];
 		}
 
 	}
