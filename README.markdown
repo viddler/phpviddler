@@ -15,6 +15,20 @@ phpViddler is meant to be installed into most any PHP-powered web site or applic
 4. Initiate Viddler class $v = new Phpviddler();
 5. Setup API Key variable $v->apikey=KEY_HERE
 
+Usage
+-----
+    $v = new Phpviddler('your api key');
+    
+    // Find videos by user
+    $videos = $v->videos_listbyuser('kyleslat');
+    foreach($videos['video_list']['video'] as $video) {
+      echo $v->video_getEmbed($video['id']);
+    }
+
+Included in PHPviddler is an /examples/ directory with a few code examples.
+
+For more tutorials check the [Viddler Development Blog](http://developers.viddler.com/category/tutorials/phpviddler/)
+
 Licensing
 ---------
 phpViddler is dual-licensed under the MIT and GPL licenses. The details of these licenses are included with the zip file.
@@ -29,14 +43,3 @@ PHP 5
 -----
 Included is a class `Php5viddler` which will raise exceptions (supported in PHP 5) if an error is returned from the API.  If you use `Phpviddler`, you need to check the response to see if there is an error node.
 
-Usage
------
-    $v = new Phpviddler('your api key');
-    
-    // Find videos by user
-    $videos = $v->videos_listbyuser('kyleslat');
-    foreach($videos['video_list']['video'] as $video) {
-      echo $v->video_getEmbed($video['id']);
-    }
-    
-For more tutorials check the [Viddler Development Blog](http://developers.viddler.com/category/tutorials/phpviddler/)
