@@ -3,7 +3,7 @@
 // These examples are in PHP 5.
 
 include('../php5viddler.php');
-$v = new Phpviddler('01171d24e48b43444556524f45b3'); // Get an API key by going to You > Profile & API on Viddler.
+$v = new Phpviddler('YOUR API KEY HERE'); // Get an API key by going to You > Profile & API on Viddler.
 
 ?>
 <!DOCTYPE html>
