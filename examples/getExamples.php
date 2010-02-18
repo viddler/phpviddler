@@ -48,21 +48,21 @@ $v = new Phpviddler('YOUR API KEY HERE'); // Get an API key by going to You > Pr
 		?></p>
 		
 		
-		<h2><a href="http://developers.viddler.com/documentation/api/method-videos-search/">viddler.videos.search</a></h2>
-		<p>Search all of Viddler's public videos for "iPhone".</p>
-		<p><?php 
+		<h2><a href="http://developers.viddler.com/documentation/api/method-users-getprofile/">viddler.users.getProfile</a></h2>
+		<p>Show a user's profile.</p>
+		<?php 
 		
 		// Search videos: type=allvideos, query=iphone, videos 5
-		$videos = $v->video_search(array('type'=>'allvideos','query'=>'iphone','per_page'=>5));
+		$userInfo = $v->user_profile('viddlerdevtest');
 		
-		// Loop through videos showing just the thumbnail
-		// with a link to the video itself.
-		foreach($videos['video_list']['video'] as $video) {
-			echo '<a href="'.$video['url'].'"><img src="'.$video['thumbnail_url'].'" alt="thumbnail" width="60" /></a> ';
-		}
-		?></p>
+		echo '<p><strong>Username:</strong> '.$userInfo['user']['username'].'</p>';
+		echo '<p><strong>Avatar:</strong> <img src="'.$userInfo['user']['avatar'].'" /></p>';
+		echo '<p><strong>Number of videos:</strong> '.$userInfo['user']['video_upload_count'].'</p>';
+	
+		?>
+		<p>Note: If Avatar is blank you should use default. More profile variables are available, review doc.</p>
 		
-		<p>Please feel free to add more. Most GET requests return similar results though.</p>
+		<p>Please feel free to add more examples. Most GET requests return similar results though.</p>
 		
 		
 		
