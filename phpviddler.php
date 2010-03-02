@@ -14,7 +14,7 @@
     #  XML Library by Keith Devens
 	#  xmlparser.php
 	#
-	#  Version 0.6
+	#  Version 0.7
 	########################################################
 */
 
@@ -470,6 +470,22 @@ ovie" value="http://www.viddler.com/'.$type.'/'.$videoid.'/" />';
 		return $embedcode;
 	}
 	
+	/* video_go()
+	/ description: Creates a Viddler short URL using http://go.viddler.com/
+	/ accepts: $url(string) - must be full URL e.g. http://www.viddler.com/explore/cdevroe/videos/133/
+	/ returns: string or false if invalid URL.
+	/ added by: Colin Devroe on March 2, 2010 while listening to Spoon for the first time.
+	*/
+	function video_go($url) {
+		//! To do: Send URL to Viddler API.
+		$response = $this->video_detailsbyurl($url);
+		
+		if (isset($response['error'])) {
+			return false;
+		} else {
+			return 'http://go.viddler.com/'.$response['video']['id'].'/';
+		}
+	}	
 	
 	/* buildArguments()
 	/ accepts: $p(array)

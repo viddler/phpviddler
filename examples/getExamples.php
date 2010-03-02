@@ -3,7 +3,7 @@
 // These examples are in PHP 5.
 
 include('../php5viddler.php');
-$v = new Phpviddler('YOUR API KEY HERE'); // Get an API key by going to You > Profile & API on Viddler.
+$v = new Phpviddler(''); // Get an API key by going to You > Profile & API on Viddler.
 
 ?>
 <!DOCTYPE html>
@@ -61,6 +61,12 @@ $v = new Phpviddler('YOUR API KEY HERE'); // Get an API key by going to You > Pr
 	
 		?>
 		<p>Note: If Avatar is blank you should use default. More profile variables are available, review doc.</p>
+		
+		<h2>Creating a Viddler short URL</h2>
+		<p>Create a short URL using http://go.viddler.com/ using the following URL as an example:<br />URL: <a href="http://www.viddler.com/explore/cdevroe/videos/133/">http://www.viddler.com/explore/cdevroe/videos/133/</a></p>
+		
+		<?php $shortURL = $v->video_go('http://www.viddler.com/explore/cdevroe/videos/133/');?>
+		<p>Short URL: <a href="<?=$shortURL;?>"><?=$shortURL;?></a></p>
 		
 		<p>Please feel free to add more examples. Most GET requests return similar results though.</p>
 		
