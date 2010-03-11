@@ -14,7 +14,6 @@
     #  XML Library by Keith Devens
 	#  xmlparser.php
 	#
-	#  Version 0.7
 	########################################################
 */
 
@@ -26,6 +25,7 @@ class Phpviddler {
 
 	var $apiKey;  // To obtain an API key: http://developers.viddler.com/
 	var $viddlerREST = 'http://api.viddler.com/rest/v1/'; // REST URL Version 1.0
+	var $viddlerRESTSSL = 'https://api.viddler.com/rest/v1/'; // REST URL SSL Version 1.0
 	var $parser = true; // Use the included XML parser? Default: true.
 	var $debug = false; // Switch for debug mode
 
@@ -525,9 +525,15 @@ ovie" value="http://www.viddler.com/'.$type.'/'.$videoid.'/" />';
     // uploads for inappropriate fields. Someday PHP's behavior may
     // change to the new API I suggest in that bug report (requiring
     // some changes here). We can hope.
-
+	
+	if ($method == 'viddler.users.auth') {
+		$reqURL = $this->viddlerRESTSSL.'?api_key='.$this->apiKey.'&method='.$method;
+	} else {
 		$reqURL = $this->viddlerREST.'?api_key='.$this->apiKey.'&method='.$method;
-		if ($postmethod == 'get') {
+	}
+		
+		
+	if ($postmethod == 'get') {
       if (is_array($args)) 
       {
         $getArgs = $this->buildArguments($args);
