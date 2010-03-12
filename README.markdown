@@ -11,13 +11,14 @@ PHP 5+, json_encode(), SimpleXML, Viddler API Key
 This is a very easy-to-use and lightweight Viddler API client written in PHP. If you want to use the official Viddler client, [http://github.com/viddler/phpviddler](click here). It makes use of the __call method so that you can easily call any valid API method without any of the methods actually being defined.
 
 Let's say you want to call the method viddler.users.auth, you can call it using any of these ways:
-1. $viddler->viddler_users_auth($params);
-2. $viddler->users_auth($params);
-3. $viddler->viddlerUsersAuth($params);
-4. $viddler->usersAuth($params);
-5. $viddler->usersauth($params);
-6. $viddler->viddlerusersauth($params);
-7. $viddler->viddlerusersAuth($params);
+
+    $viddler->viddler_users_auth($params);
+    $viddler->users_auth($params);
+    $viddler->viddlerUsersAuth($params);
+    $viddler->usersAuth($params);
+    $viddler->usersauth($params);
+    $viddler->viddlerusersauth($params);
+    $viddler->viddlerusersAuth($params);
 
 Crazy I know but there is a method that will format the method you called. You DO NOT need to prepend your method call with the namespace of 'viddler' but if you do, it's okay, the client will figure it out. After that there is a breakdown of the next namespace (users, videos, api), the client will find this namespace and set it aside. After that the client will find the actual method name in either camelCase or under_score and format it correctly.
 
