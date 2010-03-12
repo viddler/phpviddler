@@ -1,42 +1,51 @@
-phpViddler API Library
-======================
+### Description
+Lightweight Viddler API Client
 
-A PHP Wrapper class for Viddler’s REST Interface. Wraps each method into their own functions and includes an open source XML Parser.
+### Requirements
+PHP 5+, json_encode(), SimpleXML, Viddler API Key
 
-For more information, visit [our developer site](http://developers.viddler.com/projects/api-wrappers/phpviddler/)
+### API Documentation
+[http://developers.viddler.com/documentation/api/](http://developers.viddler.com/documentation/api/)
 
-Installation Instructions
--------------------------
-phpViddler is meant to be installed into most any PHP-powered web site or application.
+### Brief Rundown
+This is a very easy-to-use and lightweight Viddler API client written in PHP. If you want to use the official Viddler client, [http://github.com/viddler/phpviddler](click here). It makes use of the __call method so that you can easily call any valid API method without any of the methods actually being defined.
 
-1. Download the most recent version.
-2. Upload phpviddler.php and xmlparser.php to your server.
-3. Include phpviddler.php in your web site or application.
-4. Initiate Viddler class $v = new Phpviddler();
-5. Setup API Key variable $v->apikey=KEY_HERE
+Let's say you want to call the method viddler.users.auth, you can call it using any of these ways:
+1. $viddler->viddler_users_auth($params);
+2. $viddler->users_auth($params);
+3. $viddler->viddlerUsersAuth($params);
+4. $viddler->usersAuth($params);
+5. $viddler->usersauth($params);
+6. $viddler->viddlerusersauth($params);
+7. $viddler->viddlerusersAuth($params);
 
-Licensing
----------
-phpViddler is dual-licensed under the MIT and GPL licenses. The details of these licenses are included with the zip file.
+Crazy I know but there is a method that will format the method you called. You DO NOT need to prepend your method call with the namespace of 'viddler' but if you do, it's okay, the client will figure it out. After that there is a breakdown of the next namespace (users, videos, api), the client will find this namespace and set it aside. After that the client will find the actual method name in either camelCase or under_score and format it correctly.
 
-Third-party software included
------------------------------
-* [XML Library](http://keithdevens.com/software/phpxml) by Keith Devens, version 1.2b (optional)
+I prefer underscore but that's just me.
 
-At present we include the XML Library as a means to parse the REST API’s responses, though it is configurable to turn off for applications that already have an XML Parser. See readme for details.
+### POST, HTTPS and BINARY
+The client will figure this out for you. If the method is to be sent using POST, it's set for you. If it has the option to be sent over HTTPS, it sets it. If it is to send a binary file...yep does that for you too.
 
-PHP 5
------
-Included is a class `Php5viddler` which will raise exceptions (supported in PHP 5) if an error is returned from the API.  If you use `Phpviddler`, you need to check the response to see if there is an error node.
+### Response Type
+As an add-on I have enabled 3 types of responses not just the XML to array. You can get XML, a PHP array or JSON. This client does not have to include any json or xml parser files, it uses json_encode and SimpleXML from PHP's core. If you do not have these in your version of PHP, you CANNOT use this client. The default response type set is 'php' which will return an array.
 
-Usage
------
-    $v = new Phpviddler('your api key');
+You can set the response type either by setting the class parameter ($viddler->response_type = 'json') or you can set it on the fly for each method call you make. Just set it as 'response_type' param in your argument array.
+
+###API Key
+You can also send a new API Key at anytime in any method call. You can set it when you call the client and change it with any method call just by adding the 'api_key' param to your argument array.
+
+### Simple Example
+    $viddler = new Viddler('APIKEY');
+    $res = $viddler->users_auth(array(
+      'user'      =>  'USERNAME',
+      'password'  =>  'YOUR PASS'
+    ));
     
-    // Find videos by user
-    $videos = $v->videos_listbyuser('kyleslat');
-    foreach($videos['video_list']['video'] as $video) {
-      echo $v->video_getEmbed($video['id']);
-    }
-    
-For more tutorials check the [Viddler Development Blog](http://developers.viddler.com/category/tutorials/phpviddler/)
+### Set API Key and Response Type on method call
+    $viddler = new Viddler;
+    $res = $viddler->videos_getByUser(array(
+      'user'          =>  'USERNAME',
+      'sessionid'     =>  'SESSIONID',
+      'api_key'       =>  'APIKEY',
+      'response_type' =>  'json'
+    ));
