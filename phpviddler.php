@@ -434,9 +434,7 @@ class Phpviddler {
 		
 		if (!$videoid) return false;
 
-    $html = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width=
-"'.$width.'" height="'.$height.'" id="viddlerplayer-'.$videoid.'"><param name="m
-ovie" value="http://www.viddler.com/'.$type.'/'.$videoid.'/" />';
+    $html = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="'.$width.'" height="'.$height.'" id="viddlerplayer-'.$videoid.'"><param name="movie" value="http://www.viddler.com/'.$type.'/'.$videoid.'/" />';
     if ($autoplay) {
       $options['autoplay'] = 't';
     }
