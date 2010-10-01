@@ -1,23 +1,22 @@
 <?php
 include_once('phpviddler.php');
 
-class Php5viddler extends Phpviddler {  
-  function sendRequest($method=null,$args=null,$postmethod='get',$tryagain=true) {    
-    $result = parent::sendRequest($method, $args, $postmethod);
-    
-    if($tryagain && is_null($result)) {
-      $result = parent::sendRequest($method, $args, $postmethod, false);
-    } elseif(is_null($result)) {
-      throw new ViddlerException("No response", $method, 8888, 'n/a');
-    }
-    
-    if(is_array($result) && isset($result['error'])) {
-      throw new ViddlerException($result['error']['description'], $method, $result['error']['code'], $result['error']['details']);
-    }
+class Php5viddler extends Phpviddler
+{
+      function sendRequest($method=null, $args=null, $postmethod='get')
+      {
+            $result = parent::sendRequest($method, $args, $postmethod);
 
-		return $result;
-  }
+            if (is_null($result)) {
+              throw new ViddlerException("No response", $method, 8888, 'n/a');
+            }
 
+            if(is_array($result) && isset($result['error'])) {
+              throw new ViddlerException($result['error']['description'], $method, $result['error']['code'], $result['error']['details']);
+            }
+
+            return $result;
+      }
 }
 
 class ViddlerException extends Exception {
