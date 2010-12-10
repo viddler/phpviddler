@@ -122,6 +122,7 @@ class Phpviddler {
 		// tom@punkave.com: this didn't work as-is because curl doesn't know
 		// the 'file' field is the path of a file to be uploaded unless
 		// you tell it by prefixing the value with an '@' sign.
+		// Added some code.
 		$rest = $this->viddlerREST;
 		$temprest = $this->video_prepareupload($videoInfo['sessionid']);
 		$this->viddlerREST = $temprest['upload']['endpoint'];
