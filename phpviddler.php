@@ -94,7 +94,11 @@ class Viddler_V2 {
 		$protocol = (in_array($method, $secure_methods)) ? "https" : "http";
 		
 		// Build API endpoint URL
-		$url = $protocol . "://api.viddler.com/api/v2/" . $method . ".php";
+		if(isset($args[1])) {
+		  $url = $args[1];
+		} else {
+  		$url = $protocol . "://api.viddler.com/api/v2/" . $method . ".php";
+  	}
 		
 		if ($post === TRUE) { // Is a post method
 				array_push($query, "key=" . $this->api_key); // Adds API key to the POST arguments array
@@ -123,17 +127,25 @@ class Viddler_V2 {
 		// Custruct the cURL call
 		$ch = curl_init();
 		curl_setopt ($ch, CURLOPT_URL, $url);
-		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, TRUE);
-		curl_setopt ($ch, CURLOPT_HEADER, FALSE);
-		curl_setopt ($ch, CURLOPT_TIMEOUT, FALSE);
+		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 1);
+		curl_setopt ($ch, CURLOPT_HEADER, 0);
+		curl_setopt ($ch, CURLOPT_TIMEOUT, 0);
 		curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		
 		// Figure POST vs. GET
 		if ($post == TRUE) {
 			curl_setopt($ch, CURLOPT_POST, TRUE);
 			if ($binary === TRUE) {
-				curl_setopt($ch, CURLOPT_POSTFIELDS, $args[0]);
+			  $binary_args = array();
+			  foreach($args[0] as $k=>$v) {
+			    if($k != 'file') $binary_args[$k] = $v;
+			  }
+			  
+			  if(!isset($binary_args['key'])) $binary_args['key'] = $this->api_key;
+			  $binary_args['file'] = $args[0]['file'];
+			  
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $binary_args);
 			}
 			else {
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
