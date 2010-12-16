@@ -1,6 +1,6 @@
 <?php
 /* Viddler PHP Wrapper for Viddler's API 
-  Version 2.0
+  Version 2.2
   Released: December 2010.
   http://developers.viddler.com/projects/api-wrappers/phpviddler/
 */
