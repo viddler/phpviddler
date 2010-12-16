@@ -170,8 +170,6 @@ class Viddler_V2 {
       return $response;
     }
     else {
-      echo "resp: " + $response;
-      print_r($response);
       $response = unserialize($response);
     }
     
