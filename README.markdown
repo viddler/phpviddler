@@ -23,8 +23,12 @@ Usage
     foreach($videos['list_result']['video_list'] as $video) {
       print_r($video);
     }
+    
+Notes
+-----
+viddler_videos_upload() can accept a second parameter for defining the upload end-point that the API has given you to use. This is best practice for the very quickest upload possible. Find the example code in /examples/uploadExample.php
 
-Included in PHPviddler is an /examples/ directory with a few code examples. These have been updated to use version 2 of our API.
+Included in PHPviddler is an /examples/ directory with a few code examples. These have been updated to use version 2 of our API and include GET, POST, and upload examples.
 
 Licensing
 ---------

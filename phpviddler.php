@@ -2,6 +2,7 @@
 /* Viddler PHP Wrapper for Viddler's API 
   Version 2.0
   Released: December 2010.
+  http://developers.viddler.com/projects/api-wrappers/phpviddler/
 */
 
 /* Viddler Class
@@ -10,7 +11,13 @@ class Viddler_V2 {
   public $api_key = NULL;
   
   // Construct! Like the Matrix.
-  public function __construct($api_key) { $this->api_key = $api_key;  }
+  public function __construct($api_key) {
+    if (!$api_key) {
+      return FALSE;
+    } else {
+      $this->api_key = $api_key;
+    }
+  }
 
   /**
   Can be called like such:
@@ -32,16 +39,15 @@ class Viddler_V2 {
     //If the method exists here, call it
     if (method_exists($this, $method)) { return $this->$method($args[0]); }
     
+    // Used to construct the querystring.
     $query = array();
     
-    // Which methods should we require 
-    // a secure call for?
+    // Methods that require HTTPS
     $secure_methods = array(
       'viddler.users.auth'
     );
     
-    // Which methods should we require
-    // a POST for?
+    // Methods that require POST
     $post_methods = array(
       'viddler.encoding.cancel',
       'viddler.encoding.encode',
@@ -80,8 +86,7 @@ class Viddler_V2 {
       'viddler.videos.disableAds'
     );
     
-    // Which methods should we require
-    // binary transfer for?
+    // Methods that require Binary transfer
     $binary_methods = array(
       'viddler.videos.setThumbnail',
       'viddler.videos.upload'
@@ -94,6 +99,7 @@ class Viddler_V2 {
     $protocol = (in_array($method, $secure_methods)) ? "https" : "http";
     
     // Build API endpoint URL
+    // This is generally used to switch the end-point for uploads. See /examples/uploadExample.php in PHPViddler 2
     if(isset($args[1])) {
       $url = $args[1];
     } else {
