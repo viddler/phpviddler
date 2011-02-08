@@ -3,7 +3,7 @@
 // These examples are in PHP 5.
 
 include('../php5viddler.php');
-$v = new Phpviddler('YOUR API KEY HERE'); // Get an API key by going to You > Profile & API on Viddler.
+$v = new Phpviddler(''); // Get an API key by going to You > Profile & API on Viddler.
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ $v = new Phpviddler('YOUR API KEY HERE'); // Get an API key by going to You > Pr
 		<h1>PHPViddler POST Examples</h1>
 		<p>A few simple examples of POSTing data to Viddler's API using PHPViddler.</p>
 		
-		<h2><a href="http://developers.viddler.com/documentation/api/method-users-auth/">viddler.users.auth</a></h2>
+		<h2>viddler.users.auth</h2>
 		<p>A quick example of authenticating a user.</p>
 		
 		<form method="post" action="postExamples.php">
@@ -29,7 +29,6 @@ $v = new Phpviddler('YOUR API KEY HERE'); // Get an API key by going to You > Pr
 		<p><?php 
 		
 		if ($_POST) {
-			// Search videos: type=allvideos, query=iphone, videos 5
 			$user = $v->user_authenticate($_POST['username'],$_POST['password']);
 			
 			// Check for authentication error
@@ -44,7 +43,7 @@ $v = new Phpviddler('YOUR API KEY HERE'); // Get an API key by going to You > Pr
 		?></p>
 		<p><small>Notes: Session IDs last for 15 minutes after inactivity but are automatically renewed with activity. Adding a "1" as a final argument will return a record token that can be used to record a video <a href="http://developers.viddler.com/documentation/articles/howto-record/">using Viddler's Flash video recorder</a>.</small></p>
 		
-		<h2><a href="http://developers.viddler.com/documentation/api/method-videos-getrecordtoken/">viddler.videos.getRecordToken</a></h2>
+		<h2>viddler.videos.getRecordToken</h2>
 		<p>This method simply returns a record token using a Session ID. It is recommended that, if possible, you use the viddler.users.auth method when generating a new record token because it also generates a new Session ID.</p>
 		
 		<?php if($_POST && !isset($user['error'])) {

@@ -5,6 +5,12 @@ A PHP Wrapper class for Viddler’s REST Interface. Wraps each method into their
 
 For more information, visit [our developer site](http://developers.viddler.com/projects/api-wrappers/phpviddler/)
 
+
+URGENT!
+======================
+
+We highly recommend upgrading your application to use PHPViddler 2. We're offering this transitional version only to help you move from version 1 of our API to version 2 as painlessly as possible. However, this version will no longer be supported and only version 2 of PHP Viddler and our API will be supported in the future.
+
 Installation Instructions
 -------------------------
 phpViddler is meant to be installed into most any PHP-powered web site or application.

@@ -18,7 +18,7 @@ $v = new Phpviddler(''); // Get an API key by going to You > Profile & API on Vi
 		<p>A few simple examples of retrieving some videos from Viddler's API using PHPViddler.</p>
 		
 		
-		<h2><a href="http://developers.viddler.com/documentation/api/method-videos-getbyuser/">viddler.videos.getByUser</a></h2>
+		<h2>viddler.videos.getByUser</h2>
 		<p>Some videos based on a user - viddlerdevtest (a Viddler account we use for testing)</p>
 		<p><?php 
 		
@@ -33,7 +33,7 @@ $v = new Phpviddler(''); // Get an API key by going to You > Profile & API on Vi
 		?></p>
 		
 		
-		<h2><a href="http://developers.viddler.com/documentation/api/method-videos-search/">viddler.videos.search</a></h2>
+		<h2>viddler.videos.search</h2>
 		<p>Search all of Viddler's public videos for "iPhone".</p>
 		<p><?php 
 		
@@ -48,7 +48,7 @@ $v = new Phpviddler(''); // Get an API key by going to You > Profile & API on Vi
 		?></p>
 		
 		
-		<h2><a href="http://developers.viddler.com/documentation/api/method-users-getprofile/">viddler.users.getProfile</a></h2>
+		<h2>viddler.users.getProfile</h2>
 		<p>Show a user's profile.</p>
 		<?php 
 		
