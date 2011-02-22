@@ -208,7 +208,7 @@ class Phpviddler {
   function video_detailsbyurl($videourl=null,$sessionid=null) {
     if($videourl && !strpos($videourl, 'explore')) $videourl = str_replace('viddler.com/', 'viddler.com/explore/', $url);
     
-    $videoDetails = $this->sendRequest('viddler.videos.getDetailsByUrl','sessionid='.$sessionid.'&url='.$videourl);
+    $videoDetails = $this->sendRequest('viddler.videos.getDetails','sessionid='.$sessionid.'&url='.$videourl);
     
     return $videoDetails;
   }
