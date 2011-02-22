@@ -538,7 +538,9 @@ class Phpviddler {
   
   if ($method == 'viddler.users.auth') {
     $reqURL = $this->viddlerRESTSSL.$method.'.'.$this->format.'?api_key='.$this->apiKey;
-  } else {
+  } else if ($method == 'viddler.videos.upload') {
+    $reqURL = $this->viddlerREST.'?api_key='.$this->apiKey;
+  } else  {
     $reqURL = $this->viddlerREST.$method.'.'.$this->format.'?api_key='.$this->apiKey;
   }
     
