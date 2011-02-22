@@ -114,6 +114,15 @@ class Phpviddler {
   
 /*##########  Video functions ########### */
 
+  /* viddler.videos.delete
+  / accepts: sessionid(number) video_id(string)
+  / returns: array or xml
+  */
+  function video_delete($sessionid=null, $video_id=null) {
+    $result = $this->sendRequest('viddler.videos.delete', array('sessionid'=>$sessionid, 'video_id'=>$video_id), 'post');    
+    return $result;
+  }
+
   /* viddler.videos.prepareUpload
   / accepts: $sessionid
   / returns: array or xml
