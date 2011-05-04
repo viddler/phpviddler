@@ -16,7 +16,7 @@ $v = new Viddler_V2('01171d24e48b43444556524f45b3'); // Get an API key by going 
 		<p>A few simple examples of retrieving some videos from Viddler's API using PHPViddler.</p>
 		
 		
-		<h2><a href="http://developers.viddler.com/documentation/api-v2/">viddler.videos.getByUser</a></h2>
+		<h2><a href="http://developers.viddler.com/documentation/api-v2/#toc-viddler-videos-getbyuser">viddler.videos.getByUser</a></h2>
 		<p>Some videos based on a user - viddlerdevtest (a Viddler account we use for testing)</p>
 		<p><?php 
 		
@@ -60,7 +60,7 @@ $v = new Viddler_V2('01171d24e48b43444556524f45b3'); // Get an API key by going 
 		?></p>
 		
 		
-		<h2><a href="http://developers.viddler.com/documentation/api-v2/">viddler.users.getProfile</a></h2>
+		<h2><a href="http://developers.viddler.com/documentation/api-v2/#toc-viddler-users-getprofile">viddler.users.getProfile</a></h2>
 		<p>Show a user's profile.</p>
 		<?php 
 		
@@ -80,7 +80,7 @@ $v = new Viddler_V2('01171d24e48b43444556524f45b3'); // Get an API key by going 
 		?>
 		<p>Note: If Avatar is blank you should use default. More profile variables are available, review doc.</p>
 		
-		<p>Please feel free to add more examples. Most GET requests return similar results though.</p>
+		<p>Please feel free to add more examples. Most GET requests return similar results.</p>
 		
 	</body>
 </html>

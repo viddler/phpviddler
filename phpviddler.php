@@ -44,7 +44,8 @@ class Viddler_V2 {
     
     // Methods that require HTTPS
     $secure_methods = array(
-      'viddler.users.auth'
+      'viddler.users.auth',
+      'viddler.users.register'
     );
     
     // Methods that require POST
