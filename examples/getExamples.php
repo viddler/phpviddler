@@ -1,6 +1,6 @@
 <?php
 
-include('../phpviddler2.php');
+include('../phpviddler.php');
 $v = new Viddler_V2('01171d24e48b43444556524f45b3'); // Get an API key by going to You > Profile & API on Viddler.
 
 ?>
