@@ -1,7 +1,7 @@
 <?php
 
 include('../phpviddler.php');
-$v = new Viddler_V2('01171d24e48b43444556524f45b3'); // Get an API key by going to You > Profile & API on Viddler.
+$v = new Viddler_V2('YOUR API KEY'); // Get an API key by going to You > Profile & API on Viddler.
 
 ?>
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ $v = new Viddler_V2('01171d24e48b43444556524f45b3'); // Get an API key by going 
 		<p><?php 
 		
 		// Get videos (page 1, videos 5)
-		$videos = $v->viddler_videos_getByUser(array('user'=>'viddlerdevtest','per_page'=>5,'page'=>1));
+		$videos = $v->viddler_videos_getByUser(array('user'=>'YOUR USERNAME','per_page'=>5,'page'=>1));
 		
 		/* Debug only 
 		echo '<pre>';
@@ -65,7 +65,7 @@ $v = new Viddler_V2('01171d24e48b43444556524f45b3'); // Get an API key by going 
 		<?php 
 		
 		// Search videos: type=allvideos, query=iphone, videos 5
-		$userInfo = $v->viddler_users_getProfile(array('user'=>'cdevroe'));
+		$userInfo = $v->viddler_users_getProfile(array('user'=>'YOUR USERNAME'));
 		
 		/*
 		echo '<pre>';
