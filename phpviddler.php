@@ -56,6 +56,8 @@ class Viddler_V2 {
       'viddler.groups.addVideo',
       'viddler.groups.join',
       'viddler.groups.leave',
+      'viddler.groups.addVideo',
+      'viddler.groups.removeVideo',
       'viddler.groups.removeVideo',
       'viddler.playlists.addVideo',
       'viddler.playlists.create',
