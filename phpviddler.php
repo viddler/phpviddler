@@ -458,7 +458,6 @@ class Phpviddler {
 		$curl_handle = curl_init();
 		curl_setopt ($curl_handle, CURLOPT_URL, $reqURL);
 		curl_setopt ($curl_handle, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt ($curl_handle, CURLOPT_CONNECTTIMEOUT, 1);
 		curl_setopt ($curl_handle, CURLOPT_HEADER, 0);
 		curl_setopt ($curl_handle, CURLOPT_TIMEOUT, 0);
 		$embedcode = curl_exec($curl_handle);
