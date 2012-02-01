@@ -53,12 +53,7 @@ class Viddler_V2 {
       'viddler.encoding.cancel',
       'viddler.encoding.encode',
       'viddler.encoding.setOptions',
-      'viddler.groups.addVideo',
-      'viddler.groups.join',
-      'viddler.groups.leave',
-      'viddler.groups.addVideo',
-      'viddler.groups.removeVideo',
-      'viddler.groups.removeVideo',
+      'viddler.encoding.setSettings',
       'viddler.playlists.addVideo',
       'viddler.playlists.create',
       'viddler.playlists.delete',
@@ -68,11 +63,7 @@ class Viddler_V2 {
       'viddler.users.setSettings',
       'viddler.users.setProfile',
       'viddler.users.setOptions',
-      'viddler.users.acceptFriendRequest',
-      'viddler.users.ignoreFriendRequest',
-      'viddler.users.sendFriendRequest',
-      'viddler.users.subscribe',
-      'viddler.users.unsubscribe',
+      'viddler.users.register',
       'viddler.videos.setDetails',
       'viddler.videos.setPermalink',
       'viddler.videos.comments.add',
@@ -86,7 +77,12 @@ class Viddler_V2 {
       'viddler.videos.setThumbnail',
       'viddler.videos.setDetails',
       'viddler.videos.enableAds',
-      'viddler.videos.disableAds'
+      'viddler.videos.disableAds',
+      'viddler.resellers.removeSubaccounts',
+      'viddler.playlists.addVideo',
+      'viddler.users.setPlayerBranding',
+      'viddler.users.setProfile',
+      'viddler.users.setSettings'
     );
     
     // Methods that require Binary transfer
