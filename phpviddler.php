@@ -159,7 +159,7 @@ class Viddler_V2 {
       curl_setopt($ch, CURLOPT_HTTPGET, TRUE);
     }
     
-    //G et the response
+    //Get the response
     $response = curl_exec($ch);
     
     if (!$response) {
