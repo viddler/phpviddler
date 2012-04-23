@@ -2,7 +2,9 @@
 //Example to auth as you and get your videos
 
 include('../phpviddler.php');
-$v = new Viddler_V2('YOUR API KEY'); // Get an API key by going to You > Profile & API on Viddler.
+
+//Create viddler object using HTTP:80
+$v = new Viddler_V2('YOUR API KEY');
 
 // Search videos: type=allvideos, query=iphone, videos 5
 $videos = $v->viddler_videos_search(array(

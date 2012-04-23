@@ -2,7 +2,9 @@
 //Example to auth as you and get your videos
 
 include('../phpviddler.php');
-$v = new Viddler_V2('YOUR API KEY'); // Get an API key by going to You > Profile & API on Viddler.
+
+//Create viddler object using HTTPS:443
+$v = new Viddler_V2('YOUR API KEY');
 
 //Authenticate as you
 //Always a good idea even if your profile is public

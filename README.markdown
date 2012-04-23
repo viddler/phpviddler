@@ -55,3 +55,4 @@ Changelog (started with tag 3.9) - Read overall API changelog [here]()
 - Added new method viddler.videos.comments.get (GET)
 - Updates to viddler.videos.(get|set)Details
 - Added new examples in the examples directory
+- Added support for HTTPS for all calls
