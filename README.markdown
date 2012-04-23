@@ -54,3 +54,4 @@ Changelog (started with tag 3.9) - Read overall API changelog [here]()
 - Updates to viddler.encoding.(set|get)Settings
 - Added new method viddler.videos.comments.get (GET)
 - Updates to viddler.videos.(get|set)Details
+- Added new examples in the examples directory
