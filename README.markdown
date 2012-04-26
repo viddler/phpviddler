@@ -43,7 +43,7 @@ Licensing
 phpViddler is dual-licensed under the MIT License. The details of this can be found MITlicense.txt
 
 
-Changelog (started with tag 3.9) - Read overall API changelog [here]()
+Changelog (started with tag 3.9) - Read overall API changelog [here](http://developers.viddler.com/documentation/api-changelog/)
 --------------------------------
 ### 3.9 - April 26, 2012
 
