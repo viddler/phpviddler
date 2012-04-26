@@ -5,18 +5,16 @@
   http://developers.viddler.com/projects/api-wrappers/phpviddler/
 */
 
-/* Viddler Class
-  use $var = new Viddler_V2(API KEY); */
 class Viddler_V2 {
+
   public $api_key = NULL;
+  public $secure  = FALSE;
   
   // Construct! Like the Matrix.
-  public function __construct($api_key) {
-    if (!$api_key) {
-      return FALSE;
-    } else {
-      $this->api_key = $api_key;
-    }
+  public function __construct($api_key=NULL, $secure=FALSE)
+  {
+    $this->api_key  = (! empty($api_key)) ? $api_key : $this->api_key;
+    $this->secure   = (! is_null($secure) && is_bool($secure)) ? $secure : $this->secure;
   }
 
   /**
@@ -57,32 +55,29 @@ class Viddler_V2 {
       'viddler.playlists.addVideo',
       'viddler.playlists.create',
       'viddler.playlists.delete',
-      'viddler.playlists.removeVideo',
       'viddler.playlists.moveVideo',
+      'viddler.playlists.removeVideo',
       'viddler.playslists.setDetails',
+      'viddler.resellers.removeSubaccounts',
+      'viddler.users.register',
       'viddler.users.setSettings',
       'viddler.users.setProfile',
       'viddler.users.setOptions',
-      'viddler.users.register',
-      'viddler.videos.setDetails',
-      'viddler.videos.setPermalink',
+      'viddler.videos.addClosedCaptioning',
       'viddler.videos.comments.add',
       'viddler.videos.comments.remove',
+      'viddler.videos.delClosedCaptioning',
       'viddler.videos.upload',
       'viddler.videos.delete',
       'viddler.videos.delFile',
+      'viddler.videos.disableAds',
+      'viddler.videos.enableAds',
       'viddler.videos.favorite',
-      'viddler.videos.unfavorite',
+      'viddler.videos.setClosedCaptioning',
+      'viddler.videos.setDetails',
       'viddler.videos.setPermalink',
       'viddler.videos.setThumbnail',
-      'viddler.videos.setDetails',
-      'viddler.videos.enableAds',
-      'viddler.videos.disableAds',
-      'viddler.resellers.removeSubaccounts',
-      'viddler.playlists.addVideo',
-      'viddler.users.setPlayerBranding',
-      'viddler.users.setProfile',
-      'viddler.users.setSettings'
+      'viddler.users.setPlayerBranding'
     );
     
     // Methods that require Binary transfer
@@ -95,7 +90,7 @@ class Viddler_V2 {
     $post = (in_array($method, $post_methods)) ? TRUE : FALSE;
     
     // Figure protocol http:// or https://
-    $protocol = (in_array($method, $secure_methods)) ? "https" : "http";
+    $protocol = (in_array($method, $secure_methods) || $this->secure === TRUE) ? "https" : "http";
     
     // Build API endpoint URL
     // This is generally used to switch the end-point for uploads. See /examples/uploadExample.php in PHPViddler 2

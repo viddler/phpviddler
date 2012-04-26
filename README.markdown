@@ -2,15 +2,13 @@ phpViddler API v2 Library
 http://developers.viddler.com/documentation/
 ================================
 
-A PHP class to wrap Viddler's API version 2. To access version 1 of PHPViddler please see [the v1.0 tag on GitHub](https://github.com/viddler/phpviddler/tree/v1.0).
+A PHP class for Viddler's API version 2.
 
 For more information, visit [our developer site](http://developers.viddler.com/)
 
 Installation Instructions
 --------------------------------
-PHPViddler is fully OOP. Like snOOP dogg. Ok, not like him.
-
-1. [Download the most recent version](https://github.com/viddler/phpviddler/tree/v2.0).
+1. [Download the most recent version](https://github.com/viddler/phpviddler/downloads).
 2. Upload phpviddler.php
 3. Include phpviddler.php
 4. Initiate Viddler class like this $v = new Viddler_V2('YOUR API KEY HERE');
@@ -37,9 +35,24 @@ Viddler now supports a few different embed codes types. To retrieve a proper emb
 
 Need help?
 --------------------------------
-Subscribe to our Developer's Mailing List and ask the question there. Both the Viddler development community and team members are subscribed to help you: http://groups.google.com/group/viddler-development-talk
+Subscribe to our Developer's Mailing List and ask the question there. The Viddler development community are subscribed to help you: http://groups.google.com/group/viddler-development-talk
 
 
 Licensing
 --------------------------------
 phpViddler is dual-licensed under the MIT License. The details of this can be found MITlicense.txt
+
+
+Changelog (started with tag 3.9) - Read overall API changelog [here]()
+--------------------------------
+### 3.9 - April 26, 2012
+
+- Jumped tag numbers like whoa to keep consistent with internal versioning
+- Added new method 'viddler.videos.addClosedCaptioning' (POST)
+- Added new method 'viddler.videos.delClosedCaptioning' (POST)
+- Added new method 'viddler.videos.setClosedCaptioning' (POST)
+- Updates to viddler.encoding.(set|get)Settings
+- Added new method viddler.videos.comments.get (GET)
+- Updates to viddler.videos.(get|set)Details
+- Added new examples in the examples directory
+- Added support for HTTPS for all calls
