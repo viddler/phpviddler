@@ -1,8 +1,7 @@
 <?php
-/* Viddler PHP Wrapper for Viddler's API 
-  Version 2.2
-  Released: December 2010.
-  http://developers.viddler.com/projects/api-wrappers/phpviddler/
+/*
+Viddler PHP Wrapper for Viddler's API 
+Documentation: http://developers.viddler.com
 */
 
 class Viddler_V2 {
@@ -10,7 +9,7 @@ class Viddler_V2 {
   public $api_key = NULL;
   public $secure  = FALSE;
   
-  // Construct! Like the Matrix.
+  // Constructor
   public function __construct($api_key=NULL, $secure=FALSE)
   {
     $this->api_key  = (! empty($api_key)) ? $api_key : $this->api_key;
@@ -67,7 +66,6 @@ class Viddler_V2 {
       'viddler.videos.comments.add',
       'viddler.videos.comments.remove',
       'viddler.videos.delClosedCaptioning',
-      'viddler.videos.upload',
       'viddler.videos.delete',
       'viddler.videos.delFile',
       'viddler.videos.disableAds',
@@ -82,8 +80,7 @@ class Viddler_V2 {
     
     // Methods that require Binary transfer
     $binary_methods = array(
-      'viddler.videos.setThumbnail',
-      'viddler.videos.upload'
+      'viddler.videos.setThumbnail'
     );
     
     $binary = (in_array($method, $binary_methods)) ? TRUE : FALSE;
@@ -170,5 +167,3 @@ class Viddler_V2 {
     return $response;
   }
 }
-
-?>
