@@ -1,7 +1,7 @@
 <?php
 //Example to auth as you and get your videos
 
-include('../phpviddler.php');
+include '../phpviddler.php';
 
 //Create viddler object using HTTP:80
 $v = new Viddler_V2('YOUR API KEY');

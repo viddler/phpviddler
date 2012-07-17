@@ -1,6 +1,6 @@
 <?php
 //Direct upload example, preferred upload method
-include('../phpviddler.php');
+include '../phpviddler.php';
 
 //Create viddler object using HTTP:80
 $v = new Viddler_V2('YOUR API KEY');
