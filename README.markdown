@@ -17,17 +17,18 @@ Usage
 --------------------------------
     $v = new Viddler_V2('Your API Key');
     
-    // Example find videos by user
-    $videos = $v->viddler_videos_getByUser('viddlerdevtest');
-    foreach($videos['list_result']['video_list'] as $video) {
-      print_r($video);
+    // Authenticate and get your videos
+    $auth = $v->viddler_users_auth(array('user'=>'USERNAME','password'=>'PASSWORD'));
+    if (isset($auth['auth']['sessionid'])) {
+      $videos = $v->viddler_videos_getByUser(array('sessionid'=>$auth['auth']['sessionid']));
+      print '<pre>';
+      print_r($videos);
+      print '</pre>';
     }
     
-Notes
+Examples
 --------------------------------
-viddler_videos_upload() can accept a second parameter for defining the upload end-point that the API has given you to use. This is best practice for the very quickest upload possible. Find the example code in /examples/uploadExample.php and also the How to: Upload video article: http://developers.viddler.com/documentation/articles/howto-upload-video/
-
-Included in PHPviddler is an /examples/ directory with a few code examples. These have been updated to use version 2 of our API and include GET, POST, and upload examples.
+Included in this repo is an /examples/ directory with a few code examples from uploading, uploading with curl, searching, get your profile and getting your videos.
 
 Embedding
 --------------------------------
@@ -35,7 +36,7 @@ Viddler now supports a few different embed codes types. To retrieve a proper emb
 
 Need help?
 --------------------------------
-Subscribe to our Developer's Mailing List and ask the question there. The Viddler development community are subscribed to help you: http://groups.google.com/group/viddler-development-talk
+Submit a ticket at [here](https://support.viddler.com)
 
 
 Licensing
@@ -45,6 +46,12 @@ phpViddler is dual-licensed under the MIT License. The details of this can be fo
 
 Changelog (started with tag 3.9) - Read overall API changelog [here](http://developers.viddler.com/documentation/api-changelog/)
 --------------------------------
+### 4.0 - July 18, 2012
+
+- Added direct upload example using cURL
+- Removed method viddler.videos.upload
+- Updated README file
+
 ### 3.9 - April 26, 2012
 
 - Jumped tag numbers like whoa to keep consistent with internal versioning
