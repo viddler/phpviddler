@@ -57,7 +57,7 @@ class Viddler_V2 {
       'viddler.playlists.moveVideo',
       'viddler.playlists.removeVideo',
       'viddler.playslists.setDetails',
-      'viddler.resellers.removeSubaccounts',
+      'viddler.resellers.removeSubaccount',
       'viddler.users.register',
       'viddler.users.setSettings',
       'viddler.users.setProfile',
