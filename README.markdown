@@ -46,6 +46,10 @@ phpViddler is dual-licensed under the MIT License. The details of this can be fo
 
 Changelog (started with tag 3.9) - Read overall API changelog [here](http://developers.viddler.com/documentation/api-changelog/)
 --------------------------------
+### 4.1 - November 27, 2012
+
+- Add new methods: viddler.logins.[add|delete|update] to POST array
+
 ### 4.0.1 - November 19, 2012
 
 - Fixed type of method viddler.resellers.removeSubaccount, was removeSubaccounts
