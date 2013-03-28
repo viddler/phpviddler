@@ -21,7 +21,7 @@ $session_id = (isset($auth['auth']['sessionid'])) ? $auth['auth']['sessionid'] :
 //If no session id, print errors
 if (! empty($session_id)) {
   $info = $v->viddler_users_getProfile(array(
-    'sessionid' =>  $sessionid
+    'sessionid' =>  $session_id
   ));
   
   //If any errors print them out
