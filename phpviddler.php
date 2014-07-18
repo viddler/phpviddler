@@ -2,6 +2,7 @@
 /*
 Viddler PHP Wrapper for Viddler's API 
 Documentation: http://developers.viddler.com
+Version 4.2 (18Jul2014)
 */
 
 class Viddler_V2 {
@@ -65,6 +66,7 @@ class Viddler_V2 {
       'viddler.users.setSettings',
       'viddler.users.setProfile',
       'viddler.users.setOptions',
+      'viddler.users.setPlayerBranding'
       'viddler.videos.addClosedCaptioning',
       'viddler.videos.comments.add',
       'viddler.videos.comments.remove',
@@ -78,7 +80,6 @@ class Viddler_V2 {
       'viddler.videos.setDetails',
       'viddler.videos.setPermalink',
       'viddler.videos.setThumbnail',
-      'viddler.users.setPlayerBranding'
     );
     
     // Methods that require Binary transfer
@@ -142,7 +143,13 @@ class Viddler_V2 {
         }
         
         if(!isset($binary_args['key'])) $binary_args['key'] = $this->api_key;
-        $binary_args['file'] = $args[0]['file'];
+          // Update for PHP 5.5.0 and above to use new CURLFile class
+         if (version_compare(PHP_VERSION, '5.5.0', '>=') == TRUE) {
+            $binary_args['file'] = curl_file_create($args[0]['file']);
+          }
+          else {
+            $binary_args['file'] = '@' . $args[0]['file'];
+          }
         
         curl_setopt($ch, CURLOPT_POSTFIELDS, $binary_args);
       }
