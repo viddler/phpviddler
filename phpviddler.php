@@ -66,7 +66,7 @@ class Viddler_V2 {
       'viddler.users.setSettings',
       'viddler.users.setProfile',
       'viddler.users.setOptions',
-      'viddler.users.setPlayerBranding'
+      'viddler.users.setPlayerBranding',
       'viddler.videos.addClosedCaptioning',
       'viddler.videos.comments.add',
       'viddler.videos.comments.remove',
