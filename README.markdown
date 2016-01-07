@@ -8,6 +8,8 @@ For more information, visit [our developer site](http://developers.viddler.com/)
 
 Important!
 --------------------------------
+Please see the new cURL option for TLS1.2 connectivity issues.
+
 Before updating to version 4.2 (or higher), Please note the following:
 
 Due to PHP 5.5.0 deprecating the "@" method of cURL binary transfer in favor of the [CURLFile class](http://php.net/manual/en/class.curlfile.php), viddler.videos.setThumbnail's 'file' parameter must only be the path to the file:
