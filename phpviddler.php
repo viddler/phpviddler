@@ -125,13 +125,15 @@ class Viddler_V2 {
       $args[0] = array();
     }
     
-    // Custruct the cURL call
+    // Construct the cURL call
     $ch = curl_init();
     curl_setopt ($ch, CURLOPT_URL, $url);
     curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt ($ch, CURLOPT_HEADER, 0);
     curl_setopt ($ch, CURLOPT_TIMEOUT, 0);
     curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    // For TLS1.2 connectivity issues, try this option and also check your OpenSSL version
+    //curl_setopt ($ch, CURLOPT_SSLVERSION, 6);
     
     // Figure POST vs. GET
     if ($post == TRUE) {
