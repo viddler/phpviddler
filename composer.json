@@ -1,5 +1,8 @@
 {
     "name": "viddler/phpviddler",
+    "autoload":{
+        "files": ["phpviddler.php"]
+    },
     "require": {
         "php": ">=5.1.0"
     }
